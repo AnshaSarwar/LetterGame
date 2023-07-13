@@ -3,10 +3,12 @@
 
         <item
             android:id="@+id/playgame"
-            android:title="Play Game" />
+            android:title="Play Game"
+            android:titleTextAppearance="@style/MenuTitleText"/>
         <item
             android:id="@+id/showresults"
-            android:title="Show Results" />
+            android:title="Show Results"
+            android:titleTextAppearance="@style/MenuTitleText"/>
         <!-- Add more menu items if needed -->
 
 </menu>

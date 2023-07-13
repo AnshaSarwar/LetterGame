@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.ButtonBarLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -31,9 +32,9 @@ public class MyFragment extends Fragment {
     private String answerString = "";
 
     private int questionCount = 0;
-    private String[] questions = new String[5];
-    private String[] selections = new String[5];
-    private String[] correctAnswers = new String[5];
+    private String[] questions = new String[3];
+    private String[] selections = new String[3];
+    private String[] correctAnswers = new String[3];
 
     private int score = 0;
 
@@ -46,6 +47,11 @@ public class MyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity != null) {
+            TextView welcome = mainActivity.findViewById(R.id.welcome_text_view);
+            welcome.setVisibility(View.GONE);
+        }
 
         try {
             letterTextView = view.findViewById(R.id.letter_text_view);
@@ -58,9 +64,9 @@ public class MyFragment extends Fragment {
             root=view.findViewById(R.id.root_button);
             grass=view.findViewById(R.id.grass_button);
 
-            sky.setBackgroundColor(Color.BLUE);
-            root.setBackgroundColor(Color.BLUE);
-            grass.setBackgroundColor(Color.BLUE);
+            sky.setBackgroundColor(Color.MAGENTA);
+            root.setBackgroundColor(Color.MAGENTA);
+            grass.setBackgroundColor(Color.MAGENTA);
 
             Button skyButton = view.findViewById(R.id.sky_button);
             skyButton.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +196,7 @@ public class MyFragment extends Fragment {
 
     private void proceedToNextQuestionWithDelay() {
         try {
-            if (questionCount < 5) {
+            if (questionCount < 3) {
                 questions[questionCount] = letterTextView.getText().toString(); // Save the current question
                 questionCount++;
                 answerTextView.setText("");
@@ -214,12 +220,16 @@ public class MyFragment extends Fragment {
 
     private void proceedToNextQuestion() {
         try {
-            if (questionCount < 5) {
+            if (questionCount < 3) {
                 letterTextView.setText(getRandomLetter());
             } else {
                 letterTextView.setText(" ");
                 saveTestResult();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.hide(this);
+                transaction.commit();
             }
+
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }

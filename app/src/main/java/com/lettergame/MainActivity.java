@@ -11,6 +11,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -21,15 +24,10 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     ActionBarDrawerToggle toggle;
+    Fragment currentFragment;
+    FrameLayout fragmentContainer;
 
-    @Override
-    public void onBackPressed(){
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+    TextView welcome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +37,18 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        welcome = findViewById(R.id.welcome_text_view);
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer);
+        fragmentContainer = findViewById(R.id.fragment_container);
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        MyFragment fragment = new MyFragment();
-
-        try {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, fragment);
-            transaction.commit();
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        // Set the initial fragment
+        currentFragment = null;
+        clearFragment();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -67,11 +61,16 @@ public class MainActivity extends AppCompatActivity {
                     Fragment fragment = null;
 
                     if (id == R.id.playgame) {
-                        MyFragment a = new MyFragment();
-                        loadFragment(a);
+                        fragment = new MyFragment();
                     } else if (id == R.id.showresults) {
-                        DisplayFragment b = new DisplayFragment();
-                        loadFragment(b);
+                        fragment = new DisplayFragment();
+                    }
+
+                    if (fragment != null && fragment != currentFragment) {
+                        currentFragment = fragment; // Update the current fragment
+                        loadFragment(fragment);
+                    } else if (fragment == null) {
+                        clearFragment();
                     }
 
                     return true;
@@ -83,29 +82,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loadFragment(MyFragment fragment) {
+    private void loadFragment(Fragment fragment) {
         try {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, fragment);
             transaction.commit();
+            fragmentContainer.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void loadFragment(DisplayFragment fragment) {
-        try {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, fragment);
-            transaction.commit();
-        }catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+    private void clearFragment() {
+        fragmentContainer.setVisibility(View.GONE);
     }
 }
 
-    /*private void loadFragment(DisplayFragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
-    }*/

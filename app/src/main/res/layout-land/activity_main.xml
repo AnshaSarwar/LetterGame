@@ -22,7 +22,6 @@
             app:title="Letter Game"
             app:titleTextColor="@color/black" />
         <TextView
-            android:id="@+id/welcome_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Welcome to the play letter game"
