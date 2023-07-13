@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,5 +97,7 @@ public class MainActivity extends AppCompatActivity {
     private void clearFragment() {
         fragmentContainer.setVisibility(View.GONE);
     }
+
+
 }
 

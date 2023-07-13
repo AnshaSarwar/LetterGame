@@ -78,7 +78,7 @@ public class MyFragment extends Fragment {
                             sky.setEnabled(false);
                             root.setEnabled(false);
                             grass.setEnabled(false);
-                            answerTextView.setText("Awesome, your answer is correct");
+                            answerTextView.setText("Correct Answer!");
                             String modified = answerString.replaceAll("Letter", "");
                             correctAnswers[questionCount] = modified;
                             score++;
@@ -86,7 +86,7 @@ public class MyFragment extends Fragment {
                             sky.setEnabled(false);
                             root.setEnabled(false);
                             grass.setEnabled(false);
-                            answerTextView.setText("Incorrect! The answer is " + answerString);
+                            answerTextView.setText("Incorrect! Answer is " + answerString);
                             String modified = answerString.replaceAll("Letter", "");
                             correctAnswers[questionCount] = modified;
                         }
@@ -119,7 +119,7 @@ public class MyFragment extends Fragment {
                             sky.setEnabled(false);
                             root.setEnabled(false);
                             grass.setEnabled(false);
-                            answerTextView.setText("Awesome, your answer is correct");
+                            answerTextView.setText("Correct Answer!");
                             String modified = answerString.replaceAll("Letter", "");
                             correctAnswers[questionCount] = modified;
                             score++;
@@ -127,7 +127,7 @@ public class MyFragment extends Fragment {
                             sky.setEnabled(false);
                             root.setEnabled(false);
                             grass.setEnabled(false);
-                            answerTextView.setText("Incorrect! The answer is " + answerString);
+                            answerTextView.setText("Incorrect! Answer is " + answerString);
                             String modified = answerString.replaceAll("Letter", "");
                             correctAnswers[questionCount] = modified;
                         }
@@ -157,12 +157,12 @@ public class MyFragment extends Fragment {
                             sky.setEnabled(false);
                             root.setEnabled(false);
                             grass.setEnabled(false);
-                            answerTextView.setText("Awesome, your answer is correct");
+                            answerTextView.setText("Correct Answer");
                             String modified = answerString.replaceAll("Letter", "");
                             correctAnswers[questionCount] = modified;
                             score++;
                         } else {
-                            answerTextView.setText("Incorrect! The answer is " + answerString);
+                            answerTextView.setText("Incorrect! Answer is " + answerString);
                             sky.setEnabled(false);
                             root.setEnabled(false);
                             grass.setEnabled(false);
